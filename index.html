@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body, html{
+height: 100%;
+width: 100%;
+padding: 0px;
+margin: 0px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+
+</style>
+</head>
+
+
+
+
+
+
+
+<body>
+
+<div style="height: 450px; width: 450px; display: flex; justify-content: center; align-items: center;">
+
+<div style="height: 390px; width: 390px; border: solid 2px black; display: flex; justify-content: center; align-items: center;">
+
+<div id="segundos" style="position: fixed;">
+<div id="ponteiro_seg"><label id="seg">0</label></div>
+<div id="ponteiro_seg"><label id="seg">0</label></div>
+<div id="ponteiro_seg"><label id="seg">0</label></div>
+<div id="ponteiro_seg"><label id="seg">0</label></div>
+<div id="ponteiro_seg"><label id="seg">0</label></div>
+<div id="ponteiro_seg"><label id="seg">0</label></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+<div id="ponteiro_seg"><br></div>
+</div>
+
+<div id="minutos" style="position: fixed;">
+<div id="ponteiro_min"><label id="min">0</label></div>
+<div id="ponteiro_min"><label id="min">0</label></div>
+<div id="ponteiro_min"><label id="min">0</label></div>
+<div id="ponteiro_min"><label id="min">0</label></div>
+<div id="ponteiro_min"><label id="min">0</label></div>
+<div id="ponteiro_min"><br></div>
+<div id="ponteiro_min"><br></div>
+<div id="ponteiro_min"><br></div>
+<div id="ponteiro_min"><br></div>
+<div id="ponteiro_min"><br></div>
+<div id="ponteiro_min"><br></div>
+<div id="ponteiro_min"><br></div>
+</div>
+
+<div id="horas" style="position: fixed;">
+<div id="ponteiro_hor"><label id="hor">0</label></div>
+<div id="ponteiro_hor"><label id="hor">0</label></div>
+<div id="ponteiro_hor"><label id="hor">0</label></div>
+<div id="ponteiro_hor"><label id="hor">0</label></div>
+<div id="ponteiro_hor"><br></div>
+<div id="ponteiro_hor"><br></div>
+<div id="ponteiro_hor"><br></div>
+<div id="ponteiro_hor"><br></div>
+<div id="ponteiro_hor"><br></div>
+<div id="ponteiro_hor"><br></div>
+</div>
+
+</div>
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+</div>
+
+
+<div style="height:100px; display: flex;">
+
+<div>
+<label id="horaDigital">0</label>
+</div>
+<label>&nbsp : &nbsp</label>
+<div>
+<label id="minutoDigital">0</label>
+</div>
+<label>&nbsp : &nbsp</label>
+<label id="segundoDigital">0</label>
+
+</div>
+
+</body>
+
+
+
+<script>
+var numeroSeg = 0;
+var girarSeg = 0;
+
+var numeroMin = 0;
+var girarMin = 0;
+
+
+var numeroHor = 0;
+var girarHor = 0;
+
+seg()
+
+function seg(){
+	numeroSeg = numeroSeg+1;
+	if(!(numeroSeg > 60)){
+		girarSeg = girarSeg + 6;
+		var mudarSeg = document.querySelectorAll('[id="seg"]');
+		var rodarSeg = document.querySelectorAll('[id="ponteiro_seg"]');
+
+		mudarSeg.forEach(function(mudar_seg){
+			mudar_seg.innerHTML=numeroSeg;
+		});
+
+		rodarSeg.forEach(function(rodar_seg){
+			rodar_seg.style="transform: rotate(-" + girarSeg + "deg);";
+		});
+
+		document.getElementById("segundos").style="transform: rotate(" + girarSeg + "deg);"; 
+		setTimeout(seg, 1000);
+		
+		document.getElementById("segundoDigital").innerHTML=numeroSeg;
+
+	}
+	else{
+		girarSeg = 0;
+		numeroSeg = 0;
+		min();
+		
+		document.getElementById("segundoDigital").innerHTML=numeroSeg;
+	}
+}
+
+
+function min(){
+	numeroMin = numeroMin + 1;
+	seg()
+	if(!(numeroMin > 60)){
+		girarMin = girarMin + 6;
+		var mudarMin = document.querySelectorAll('[id="min"]');
+		var rodarMin = document.querySelectorAll('[id="ponteiro_min"]');
+
+		mudarMin.forEach(function(mudar_min){
+			mudar_min.innerHTML=numeroMin;
+		});
+
+		rodarMin.forEach(function(rodar_min){
+			rodar_min.style="transform: rotate(-" + girarMin + "deg);";
+		});
+
+		document.getElementById("minutos").style="transform: rotate(" + girarMin + "deg);"; 
+		document.getElementById("minutoDigital").innerHTML=numeroMin;
+		
+	}
+	else{
+		girarMin = 0;
+		numeroMin = 0;
+		hor();
+
+		document.getElementById("minutoDigital").innerHTML=numeroMin;
+	}
+	
+}
+
+
+function hor(){
+	numeroHor = numeroHor + 1;
+	seg()
+	min()
+	if(!(numeroHor > 60)){
+		girarHor = girarHor + 6;
+		var mudarHor = document.querySelectorAll('[id="hor"]');
+		var rodarHor = document.querySelectorAll('[id="ponteiro_hor"]');
+
+		mudarHor.forEach(function(mudar_hor){
+			mudar_hor.innerHTML=numeroHor;
+		});
+
+		rodarHor.forEach(function(rodar_hor){
+			rodar_hor.style="transform: rotate(-" + girarHor + "deg);";
+		});
+
+		document.getElementById("horas").style="transform: rotate(" + girarHor + "deg);"; 
+		document.getElementById("horaDigital").innerHTML=numeroHor;
+		
+	}
+	else{
+		girarHor = 0;
+		numeroHor = 0;
+
+		document.getElementById("horaDigital").innerHTML=numeroHor;
+		
+	}
+	
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+</html>
+
